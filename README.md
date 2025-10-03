@@ -1025,3 +1025,69 @@ Vérifie que le dossier important est bien restauré dans restore/.
 <br>
 
 
+# <center>**Correction du Challenge 3 :**</center>
+
+### **1. Vérifier les permissions actuelles du dossier user backup :**
+
+```bash
+ls -ld "user backup"
+```
+
+``-l`` : détails, ``-d`` : uniquement le dossier lui-même
+
+### **2. Changer les permissions de rapport/ pour qu’il soit accessible uniquement par toi :**
+
+```bash
+chmod 700 rapport
+```
+
+- ``7`` = lecture, écriture, exécution pour le propriétaire
+
+- ``0`` = aucun droit pour le groupe et les autres
+
+### **3. Changer les permissions de synthese.txt pour qu’il soit lisible mais non modifiable par les autres :**
+
+```bash
+chmod 644 rapport/synthese.txt
+```
+
+- Propriétaire : lecture + écriture ``(6)``
+
+- Groupe : lecture ``(4)``
+
+- Autres : lecture ``(4)``
+
+### **4. Créer un utilisateur (ex : collaborateur) :**
+
+```bash
+sudo adduser collaborateur
+```
+
+Le système demandera mot de passe et informations de l’utilisateur.
+
+### **5. Créer un groupe (ex : equipe-projet) et ajouter l’utilisateur dedans :**
+
+```bash
+sudo addgroup equipe-projet
+sudo adduser collaborateur equipe-projet
+```
+
+L’utilisateur collaborateur appartient maintenant au groupe equipe-projet.
+
+### **6. Changer le propriétaire du dossier important/ vers l’utilisateur créé :**
+
+```bash
+sudo chown collaborateur: important
+```
+
+- Le dossier important appartient maintenant à collaborateur
+
+- Le groupe reste inchangé (: sans groupe garde le groupe actuel).
+
+### **7. Afficher les groupes auxquels tu appartiens :**
+
+```bash
+groups
+```
+
+Affiche tous les groupes dont l’utilisateur courant fait partie
